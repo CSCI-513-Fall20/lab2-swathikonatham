@@ -23,8 +23,8 @@ public class OceanExplorer extends Application {
 	OceanMap oceanMap;
 	Scene scene;
 	Ship ship;
-	// javafx.scene.image.Image islandImage;
-	// ImageView islandImageView;
+	javafx.scene.image.Image islandImage;
+	ImageView islandImageView;
 
 	private void startSailing() {
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -80,15 +80,30 @@ public class OceanExplorer extends Application {
 		// Don’t forget to add the ImageView to the Pane!
 		this.root.getChildren().add(shipImageView);
 	}
-
 	
+	private void loadIslandsImage() {
+		
+        for (int i = 0; i < dimensions; i++) {
+            for (int j = 0; j < dimensions; j++) {
+
+                if (oceanMap.isIsland(i, j)) {
+                	Rectangle rect = new Rectangle(i * scalingFactor, j * scalingFactor, scalingFactor, scalingFactor);
+    				rect.setStroke(Color.BLACK);
+    				rect.setFill(Color.GREEN); 
+    				this.root.getChildren().add(rect);
+					
+                }
+            }
+        }
+
+    }
 
 	@Override
-	public void start(Stage mapStage) throws Exception {
-		
-		try{
+	public void start(Stage oceanStage) throws Exception {
+
+		try {
 			oceanMap = new OceanMap(dimensions, islandCount);
-			//islandMap = oceanMap.getMap();
+			 islandMap = oceanMap.getMap();
 
 			root = new AnchorPane();
 			drawMap();
@@ -96,54 +111,25 @@ public class OceanExplorer extends Application {
 			ship = new Ship(oceanMap);
 			loadShipImage();
 
-			// loadIslandsImage();
+			loadIslandsImage();
 
 			scene = new Scene(root, 500, 500);
 			scene.setFill(Color.BLUE);
-			mapStage.setTitle("Christopher Columbus sails the blue ocean");
-			mapStage.setScene(scene);
-			mapStage.show();
+			oceanStage.setTitle("Christopher Columbus Sails the Ocean Blue");
+			oceanStage.setScene(scene);
+			oceanStage.show();
 			startSailing();
 		}
-		
-		catch(Exception e) {
+
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
-	
+
 	public static void main(String[] args) {
 		launch(args);
 	}
 
 }
 
-
-
-
-/**package application;
-	
-import javafx.application.Application;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-
-
-public class Main extends Application {
-	@Override
-	public void start(Stage primaryStage) {
-		try {
-			BorderPane root = new BorderPane();
-			Scene scene = new Scene(root,400,400);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.show();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public static void main(String[] args) {
-		launch(args);
-	}
-}**/
