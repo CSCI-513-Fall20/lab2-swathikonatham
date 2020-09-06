@@ -1,3 +1,11 @@
+/* CSCI-513: Lab-2
+ * Team - Swathi Reddy Konatham (Z1864290)
+ *        Ankita Ratnaparkhi (Z1907718)
+ * ClassName - Ship
+ * Description - Class to move ship to eligible desired locations on Ocean
+ * */
+
+
 package application;
 
 import java.awt.Point;
