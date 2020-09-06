@@ -11,51 +11,78 @@ package application;
 import java.awt.Point;
 
 public class Ship {
-	private Point shipLocation;
+	private Point currentLoc;
 	OceanMap oceanMap;
+	//constructor
     Ship(OceanMap oceanMap){
         this.oceanMap = oceanMap;
-        this.shipLocation = oceanMap.getShipLocation();
+        this.currentLoc = oceanMap.getShipLocation();
     }
-
-    public void goEast(){
-        int x = shipLocation.x;
-        int y = shipLocation.y;
-        if(x < oceanMap.getDimensions()-1 && oceanMap.isOcean(x+1, y)){
-            oceanMap.updateShipLocationInGrid(x+1, y);
-            shipLocation.x++;
-        }
-    }
-
-    public void goWest(){
-        int x = shipLocation.x;
-        int y = shipLocation.y;
-        if(x > 0 && oceanMap.isOcean(x-1, y)){
-            oceanMap.updateShipLocationInGrid(x-1, y);
-            shipLocation.x--;
-        }
-    }
-
-    public void goNorth(){
-        int x = shipLocation.x;
-        int y = shipLocation.y;
-        if(y > 0 && oceanMap.isOcean(x, y-1)){
-            oceanMap.updateShipLocationInGrid(x, y-1);
-            shipLocation.y--;
-        }
-    }
-
+    
+    /* Method Name - goSouth
+	 * Input Parameters - None
+	 * Return Type - Void
+	 * Description - This method is used to navigate in south direction.
+	 * */
     public void goSouth(){
-        int x = shipLocation.x;
-        int y = shipLocation.y;
-        if(y < oceanMap.getDimensions()-1 && oceanMap.isOcean(x, y+1)){
-            oceanMap.updateShipLocationInGrid(x, y+1);
-            shipLocation.y++;
+        int xCell = currentLoc.x;
+        int yCell = currentLoc.y;
+        if(yCell < oceanMap.getDimensions()-1 && oceanMap.isOcean(xCell, yCell+1)){
+            oceanMap.updateShipLocationInGrid(xCell, yCell+1);
+            currentLoc.y++;
+        }
+    }
+    
+    
+    /* Method Name - goNorth
+	 * Input Parameters - None
+	 * Return Type - Void
+	 * Description - This method is used to navigate in north direction.
+	 * */
+    public void goNorth(){
+        int xCell = currentLoc.x;
+        int yCell = currentLoc.y;
+        if(yCell > 0 && oceanMap.isOcean(xCell, yCell-1)){
+            oceanMap.updateShipLocationInGrid(xCell, yCell-1);
+            currentLoc.y--;
+        }
+    }
+    
+    /* Method Name - goWest
+	 * Input Parameters - None
+	 * Return Type - Void
+	 * Description - This method is used to navigate in west direction.
+	 * */
+    public void goWest(){
+        int xCell = currentLoc.x;
+        int yCell = currentLoc.y;
+        if(xCell > 0 && oceanMap.isOcean(xCell-1, yCell)){
+            oceanMap.updateShipLocationInGrid(xCell-1, yCell);
+            currentLoc.x--;
         }
     }
 
+    /* Method Name - goEast
+	 * Input Parameters - None
+	 * Return Type - Void
+	 * Description - This method is used to navigate in east direction.
+	 * */
+    public void goEast(){
+        int xCell = currentLoc.x;
+        int yCell = currentLoc.y;
+        if(xCell < oceanMap.getDimensions()-1 && oceanMap.isOcean(xCell+1, yCell)){
+            oceanMap.updateShipLocationInGrid(xCell+1, yCell);
+            currentLoc.x++;
+        }
+    }    
+
+    /* Method Name - getShipLocation
+	 * Input Parameters - None
+	 * Return Type - Void
+	 * Description - This method is used to get the current ship location.
+	 * */
 	public Point getShipLocation() {
-		return shipLocation;
+		return currentLoc;
 	}
 
 }

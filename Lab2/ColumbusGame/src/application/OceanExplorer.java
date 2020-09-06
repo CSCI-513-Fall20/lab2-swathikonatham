@@ -20,19 +20,23 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 public class OceanExplorer extends Application {
-	boolean[][] islandMap;
+	//variables declaration
 	Pane root;
 	final int dimensions = 10;
-	final int islandCount = 10;
+	final int islandDimensions = 10;
 	final int scalingFactor = 50;
 	Image shipImage;
 	ImageView shipImageView;
 	OceanMap oceanMap;
 	Scene scene;
 	Ship ship;
-	javafx.scene.image.Image islandImage;
-	ImageView islandImageView;
+	
 
+	/* Method Name - startSailing
+	 * Input Parameters - None
+	 * Return Type - Void
+	 * Description - This method is used to sail the ship in different directions.
+	 * */
 	private void startSailing() {
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
@@ -53,47 +57,54 @@ public class OceanExplorer extends Application {
 				default:
 					break;
 				}
+				//set the ship image in desired location
 				shipImageView.setX(ship.getShipLocation().x * scalingFactor);
 				shipImageView.setY(ship.getShipLocation().y * scalingFactor);
 			}
 		});
 	}
 
+	/* Method Name - drawMap
+	 * Input Parameters - None
+	 * Return Type - Void
+	 * Description - This method is used to draw a grid of 10X10 rectangles to represent an ocean
+	 * */
 	private void drawMap() {
 		for (int x = 0; x < dimensions; x++) {
 			for (int y = 0; y < dimensions; y++) {
+				//draw rectangles for map grid
 				Rectangle rect = new Rectangle(x * scalingFactor, y * scalingFactor, scalingFactor, scalingFactor);
-				rect.setStroke(Color.BLACK); // We want the black outline
-				rect.setFill(Color.PALETURQUOISE); // I like this color better than BLUE
-				this.root.getChildren().add(rect); // Add to the node tree in the pane
+				rect.setStroke(Color.BLACK);
+				rect.setFill(Color.PALETURQUOISE);
+				this.root.getChildren().add(rect);
 			}
 		}
 	}
 
+	/* Method Name - loadShipImage
+	 * Input Parameters - None
+	 * Return Type - Void
+	 * Description - This method is used to load ship image.
+	 * */
 	private void loadShipImage() {
 		this.shipImage = new Image("ship.png", 50, 50, true, true);
-
-		// Now instantiate and load the image View. Actually this probably needs to be
-		// a class level variable so you would already have defined ImageView
-		// shipImageview
 		this.shipImageView = new ImageView(shipImage);
-
-		// Assuming that you’ve already set the ship’s starting coordinates in Ship and
-		// have
-		// created a getter method.
+		//set ship on location
 		this.shipImageView.setX(oceanMap.getShipLocation().x * scalingFactor);
 		this.shipImageView.setY(oceanMap.getShipLocation().y * scalingFactor);
-
-		// Don’t forget to add the ImageView to the Pane!
 		this.root.getChildren().add(shipImageView);
 	}
 	
-	private void loadIslands() {
-		
+	/* Method Name - loadShipImage
+	 * Input Parameters - None
+	 * Return Type - Void
+	 * Description - This method is used to load ship image.
+	 * */
+	private void loadIslands() {		
         for (int i = 0; i < dimensions; i++) {
             for (int j = 0; j < dimensions; j++) {
-
                 if (oceanMap.isIsland(i, j)) {
+                	//create 10 random green rectangles for islands and place them on grid
                 	Rectangle rect = new Rectangle(i * scalingFactor, j * scalingFactor, scalingFactor, scalingFactor);
     				rect.setStroke(Color.BLACK);
     				rect.setFill(Color.GREEN); 
@@ -105,24 +116,28 @@ public class OceanExplorer extends Application {
 
     }
 
+	/* Method Name - start
+	 * Input Parameters - Stage
+	 * Return Type - Void
+	 * Description - This method is overridden to set the Stage and Scene
+	 * */
 	@Override
 	public void start(Stage oceanStage) throws Exception {
 
 		try {
-			oceanMap = new OceanMap(dimensions, islandCount);
-			 islandMap = oceanMap.getMap();
+			oceanMap = new OceanMap(dimensions, islandDimensions);
 
 			root = new AnchorPane();
 			drawMap();
 
 			ship = new Ship(oceanMap);
 			loadShipImage();
-
 			loadIslands();
 
+			//declare a scene and set the stage.
 			scene = new Scene(root, 500, 500);
 			scene.setFill(Color.BLUE);
-			oceanStage.setTitle("Christopher Columbus Sails the Ocean Blue");
+			oceanStage.setTitle("Christopher Columbus Sails the Ocean Blue!");
 			oceanStage.setScene(scene);
 			oceanStage.show();
 			startSailing();
@@ -134,6 +149,11 @@ public class OceanExplorer extends Application {
 
 	}
 
+	/* Method Name - main
+	 * Input Parameters - None
+	 * Return Type - Void
+	 * Description - This is the main method.
+	 * */
 	public static void main(String[] args) {
 		launch(args);
 	}
