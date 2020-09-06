@@ -1,3 +1,10 @@
+/* CSCI-513: Lab-2
+ * Team - Swathi Reddy Konatham (Z1864290)
+ *        Ankita Ratnaparkhi (Z1907718)
+ * ClassName - OceanExplorer
+ * Description - Main class for Columbus ship game
+ * */
+
 package application;
 
 import javafx.application.Application;
@@ -81,7 +88,7 @@ public class OceanExplorer extends Application {
 		this.root.getChildren().add(shipImageView);
 	}
 	
-	private void loadIslandsImage() {
+	private void loadIslands() {
 		
         for (int i = 0; i < dimensions; i++) {
             for (int j = 0; j < dimensions; j++) {
@@ -111,7 +118,7 @@ public class OceanExplorer extends Application {
 			ship = new Ship(oceanMap);
 			loadShipImage();
 
-			loadIslandsImage();
+			loadIslands();
 
 			scene = new Scene(root, 500, 500);
 			scene.setFill(Color.BLUE);

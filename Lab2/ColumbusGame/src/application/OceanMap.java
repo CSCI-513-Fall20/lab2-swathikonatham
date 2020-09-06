@@ -1,3 +1,10 @@
+/* CSCI-513: Lab-2
+ * Team - Swathi Reddy Konatham (Z1864290)
+ *        Ankita Ratnaparkhi (Z1907718)
+ * ClassName - OceanMap
+ * Description - Class to create ocean and islands
+ * */
+
 package application;
 
 import java.awt.Point;
