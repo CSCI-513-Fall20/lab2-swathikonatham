@@ -5,13 +5,13 @@ import java.util.Random;
 
 public class OceanMap {
 
-    private boolean[][] myGrid;
+    private boolean[][] oceanGrid;
     private  int islandCount;
     private int dimensions;
     private Point shipLocation;
 
     OceanMap(int dimensions, int islandCount){
-        this.myGrid = Grid(dimensions, islandCount);
+        this.oceanGrid = Grid(dimensions, islandCount);
         this.islandCount = islandCount;
         this.dimensions = dimensions;
         placeIslands();
@@ -36,8 +36,8 @@ public class OceanMap {
         while(i < islandCount){
             int x = random.nextInt(this.dimensions);
             int y = random.nextInt(this.dimensions);
-            if(!this.myGrid[x][y]){
-                this.myGrid[x][y] = true;
+            if(!this.oceanGrid[x][y]){
+                this.oceanGrid[x][y] = true;
                 i++;
             }
         }
@@ -51,7 +51,7 @@ public class OceanMap {
         while(!isShipPlaced){
             x = random.nextInt(this.dimensions);
             y = random.nextInt(this.dimensions);
-            if(!this.myGrid[x][y]){
+            if(!this.oceanGrid[x][y]){
                 isShipPlaced = true;
             }
         }
@@ -62,12 +62,12 @@ public class OceanMap {
         int prevX = this.getShipLocation().x;
         int prevY = this.getShipLocation().y;
 
-        this.myGrid[prevX][prevY] = false;
-        this.myGrid[x][y] = true;
+        this.oceanGrid[prevX][prevY] = false;
+        this.oceanGrid[x][y] = true;
     }
 
     public boolean isOcean(int x, int y){
-        if (!this.myGrid[x][y]){
+        if (!this.oceanGrid[x][y]){
             return true;
         }
         return false;
@@ -77,7 +77,7 @@ public class OceanMap {
         if (getShipLocation().x == x && getShipLocation().y == y) {
             return false;
         }
-        if (this.myGrid[x][y]){
+        if (this.oceanGrid[x][y]){
             return true;
         }
         return false;
@@ -85,7 +85,7 @@ public class OceanMap {
 
 
     public boolean[][] getMap() {
-        return this.myGrid;
+        return this.oceanGrid;
     }
 
     public Point getShipLocation() {
