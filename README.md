@@ -5,3 +5,5 @@ Team Members:<br/>
 Swathi Reddy Konatham (Z1864290)<br/>
 Ankita Ratnaparkhi (Z1907718)<br/>
 
+Output is stored in Output.jpeg file
+
